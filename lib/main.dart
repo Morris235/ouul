@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'components/reply_card.dart';
+import 'components/reply_write_card.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'OUUL'),
     );
   }
 }
@@ -40,7 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const <Widget>[ReplyCard()],
+          children: const <Widget>[ReplyWriteCard()],
         ),
       ),
     );
