@@ -47,6 +47,7 @@ class ReplyWriteCard extends StatelessWidget {
                               borderSide: BorderSide(color: Color(0xff2D9CDB))),
                           filled: true,
                           fillColor: Colors.white),
+                      // 입력 필드 선택시 라인 확장
                       maxLines: 7,
                     ),
                     Row(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ouul/components/vote_list_topic_item.dart';
 import 'components/reply_write_card.dart';
 
 void main() {
@@ -40,7 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const <Widget>[ReplyWriteCard()],
+          children: const <Widget>[VoteListTopicItem()],
         ),
       ),
     );
