@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
 class VoteListTopicItem extends StatelessWidget {
-  const VoteListTopicItem({super.key});
+  const VoteListTopicItem(
+      {super.key, required this.title, required this.isVoted});
+
+  final String title;
+  final bool isVoted;
 
   @override
   Widget build(BuildContext context) {
@@ -42,32 +46,15 @@ class VoteListTopicItem extends StatelessWidget {
                   const SizedBox(
                     width: 70,
                   ),
-                  Container(
-                      width: 60,
-                      height: 23,
-                      decoration: BoxDecoration(
-                          color: const Color(0xffE0E0E0),
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(20)),
-                          border: Border.all(color: const Color(0xffE0E0E0))),
-                      child: const Center(
-                        child: Text(
-                          '참여 완료',
-                          style: TextStyle(
-                              fontSize: 12,
-                              fontFamily: 'Noto_Sans_KR',
-                              fontWeight: FontWeight.w700),
-                          textAlign: TextAlign.center,
-                        ),
-                      ))
+                  _votedBadge()
                 ],
               ),
               const SizedBox(
                 height: 10,
               ),
-              const Text(
-                '차 멀미 날 때 어떻게 해?',
-                style: TextStyle(
+              Text(
+                title,
+                style: const TextStyle(
                     fontSize: 18,
                     fontFamily: 'Noto_Sans_KR',
                     fontWeight: FontWeight.w700),
@@ -87,5 +74,27 @@ class VoteListTopicItem extends StatelessWidget {
             ],
           )),
     );
+  }
+
+  Widget _votedBadge() {
+    return isVoted
+        ? Container(
+            width: 60,
+            height: 23,
+            decoration: BoxDecoration(
+                color: const Color(0xffE0E0E0),
+                borderRadius: const BorderRadius.all(Radius.circular(20)),
+                border: Border.all(color: const Color(0xffE0E0E0))),
+            child: const Center(
+              child: Text(
+                '참여 완료',
+                style: TextStyle(
+                    fontSize: 12,
+                    fontFamily: 'Noto_Sans_KR',
+                    fontWeight: FontWeight.w700),
+                textAlign: TextAlign.center,
+              ),
+            ))
+        : const SizedBox();
   }
 }

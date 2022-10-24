@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ouul/components/vote_list_topic_item.dart';
-import 'components/reply_write_card.dart';
+import 'package:ouul/views/vote_list_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -32,6 +31,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  int _pageIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,8 +41,51 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const <Widget>[VoteListTopicItem()],
+          children: const <Widget>[VoteListPage()],
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        onTap: (index) {
+          setState(() {
+            _pageIndex = index;
+          });
+        },
+        currentIndex: _pageIndex,
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            label: 'Now',
+            icon: IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.home_outlined),
+              tooltip: '메인 페이지로 이동',
+            ),
+          ),
+          BottomNavigationBarItem(
+            label: '투표',
+            icon: IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.how_to_vote_outlined),
+              tooltip: '좋아요 페이지로 이동',
+            ),
+          ),
+          BottomNavigationBarItem(
+            label: '피드',
+            icon: IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.star_outline),
+              tooltip: '사용자 페이지로 이동',
+            ),
+          ),
+          BottomNavigationBarItem(
+            label: '마이페이지',
+            icon: IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.person_2_outlined),
+              tooltip: '사용자 페이지로 이동',
+            ),
+          )
+        ],
       ),
     );
   }
