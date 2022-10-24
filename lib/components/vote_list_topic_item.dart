@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ouul/components/reply_write_card.dart';
 
 class VoteListTopicItem extends StatelessWidget {
   const VoteListTopicItem(
@@ -9,71 +10,80 @@ class VoteListTopicItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-          width: 359,
-          height: 113,
-          margin: const EdgeInsets.all(10.0),
-          padding: const EdgeInsets.all(10.0),
-          decoration: BoxDecoration(
-              borderRadius: const BorderRadius.all(Radius.circular(10)),
-              border: Border.all(color: const Color(0xffBDBDBD))),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
+    return GestureDetector(
+        onTap: () {
+          showDialog(
+              context: context,
+              barrierDismissible: true,
+              builder: (context) {
+                return const ReplyWriteCard();
+              });
+        },
+        child: Center(
+          child: Container(
+              width: 359,
+              height: 113,
+              margin: const EdgeInsets.all(10.0),
+              padding: const EdgeInsets.all(10.0),
+              decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.all(Radius.circular(10)),
+                  border: Border.all(color: const Color(0xffBDBDBD))),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                      width: 40,
-                      height: 20,
-                      decoration: BoxDecoration(
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(10)),
-                          border: Border.all(color: Colors.black)),
-                      child: const Center(
-                          child: Text(
-                        'D-1',
+                  Row(
+                    children: [
+                      Container(
+                          width: 40,
+                          height: 20,
+                          decoration: BoxDecoration(
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(10)),
+                              border: Border.all(color: Colors.black)),
+                          child: const Center(
+                              child: Text(
+                            'D-1',
+                            style: TextStyle(fontSize: 12),
+                            textAlign: TextAlign.center,
+                          ))),
+                      const SizedBox(width: 15),
+                      const Text(
+                        '2022-01-01 ~ 2022-02-02',
                         style: TextStyle(fontSize: 12),
                         textAlign: TextAlign.center,
-                      ))),
-                  const SizedBox(width: 15),
-                  const Text(
-                    '2022-01-01 ~ 2022-02-02',
-                    style: TextStyle(fontSize: 12),
-                    textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(
+                        width: 70,
+                      ),
+                      _votedBadge()
+                    ],
                   ),
                   const SizedBox(
-                    width: 70,
+                    height: 10,
                   ),
-                  _votedBadge()
-                ],
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Text(
-                title,
-                style: const TextStyle(
-                    fontSize: 18,
-                    fontFamily: 'Noto_Sans_KR',
-                    fontWeight: FontWeight.w700),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Row(
-                children: [
-                  Image.asset('assets/images/paws2.png'),
+                  Text(
+                    title,
+                    style: const TextStyle(
+                        fontSize: 18,
+                        fontFamily: 'Noto_Sans_KR',
+                        fontWeight: FontWeight.w700),
+                  ),
                   const SizedBox(
-                    width: 5,
+                    height: 10,
                   ),
-                  const Text('1,230마리가 답변 중')
+                  Row(
+                    children: [
+                      Image.asset('assets/images/paws2.png'),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      const Text('1,230마리가 답변 중')
+                    ],
+                  ),
                 ],
-              ),
-            ],
-          )),
-    );
+              )),
+        ));
   }
 
   Widget _votedBadge() {
