@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ouul/views/home_page.dart';
 import 'package:ouul/views/vote_list_page.dart';
 
 void main() {
@@ -16,77 +17,23 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'OUUL'),
+      home: const MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
+  const MyHomePage({super.key});
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _pageIndex = 0;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const <Widget>[VoteListPage()],
-        ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        onTap: (index) {
-          setState(() {
-            _pageIndex = index;
-          });
-        },
-        currentIndex: _pageIndex,
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            label: 'Now',
-            icon: IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.home_outlined),
-              tooltip: '메인 페이지로 이동',
-            ),
-          ),
-          BottomNavigationBarItem(
-            label: '투표',
-            icon: IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.how_to_vote_outlined),
-              tooltip: '좋아요 페이지로 이동',
-            ),
-          ),
-          BottomNavigationBarItem(
-            label: '피드',
-            icon: IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.star_outline),
-              tooltip: '사용자 페이지로 이동',
-            ),
-          ),
-          BottomNavigationBarItem(
-            label: '마이페이지',
-            icon: IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.person_2_outlined),
-              tooltip: '사용자 페이지로 이동',
-            ),
-          )
-        ],
-      ),
+    return const Scaffold(
+      body: HomePage(),
     );
   }
 }

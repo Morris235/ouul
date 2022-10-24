@@ -13,7 +13,7 @@ class VoteListTopicItem extends StatelessWidget {
       child: Container(
           width: 359,
           height: 113,
-          margin: const EdgeInsets.all(30.0),
+          margin: const EdgeInsets.all(10.0),
           padding: const EdgeInsets.all(10.0),
           decoration: BoxDecoration(
               borderRadius: const BorderRadius.all(Radius.circular(10)),
