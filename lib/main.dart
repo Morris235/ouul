@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:ouul/views/home_page.dart';
-import 'package:ouul/views/vote_list_page.dart';
 
 void main() {
   runApp(const MyApp());

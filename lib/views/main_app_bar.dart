@@ -8,6 +8,12 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: Colors.white,
+      leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context); //뒤로가기
+          },
+          color: Colors.black,
+          icon: const Icon(Icons.arrow_back)),
       actions: [
         IconButton(
           onPressed: () {},

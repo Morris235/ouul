@@ -21,65 +21,53 @@ class _MainBottomNaviState extends State<MainBottomNavi> {
     return BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
       currentIndex: widget.pageIndex,
-      items: <BottomNavigationBarItem>[
+      onTap: (value) {
+        switch (value) {
+          case 0:
+            if (widget.currentPage != 'HomePage') {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const HomePage(),
+                ),
+              );
+            }
+            break;
+          case 1:
+            if (widget.currentPage != 'VoteListPage') {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const VoteListPage(),
+                ),
+              );
+            }
+            break;
+          case 2:
+            if (widget.currentPage != 'FeedPage') {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const FeedPage(),
+                ),
+              );
+            }
+            break;
+          case 3:
+            if (widget.currentPage != 'MyPage') {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const MyPage(),
+                ),
+              );
+            }
+            break;
+        }
+      },
+      items: const <BottomNavigationBarItem>[
+        BottomNavigationBarItem(label: 'Now', icon: Icon(Icons.home_outlined)),
         BottomNavigationBarItem(
-            label: 'Now',
-            icon: IconButton(
-                onPressed: () {
-                  if (widget.currentPage != 'HomePage') {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const HomePage(),
-                      ),
-                    );
-                  }
-                },
-                icon: const Icon(Icons.home_outlined))),
+            label: '투표', icon: Icon(Icons.how_to_vote_outlined)),
+        BottomNavigationBarItem(label: '피드', icon: Icon(Icons.star_outline)),
         BottomNavigationBarItem(
-          label: '투표',
-          icon: IconButton(
-            onPressed: () {
-              if (widget.currentPage != 'VoteListPage') {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const VoteListPage(),
-                  ),
-                );
-              }
-            },
-            icon: const Icon(Icons.how_to_vote_outlined),
-          ),
-        ),
-        BottomNavigationBarItem(
-          label: '피드',
-          icon: IconButton(
-            onPressed: () {
-              if (widget.currentPage != 'FeedPage') {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const FeedPage(),
-                  ),
-                );
-              }
-            },
-            icon: const Icon(Icons.how_to_vote_outlined),
-          ),
-        ),
-        BottomNavigationBarItem(
-          label: '마이페이지',
-          icon: IconButton(
-            onPressed: () {
-              if (widget.currentPage != 'MyPage') {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const MyPage(),
-                  ),
-                );
-              }
-            },
-            icon: const Icon(Icons.how_to_vote_outlined),
-          ),
-        )
+            label: '마이페이지', icon: Icon(Icons.person_2_outlined))
       ],
     );
   }
