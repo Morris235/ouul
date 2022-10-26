@@ -36,7 +36,7 @@ class VoteListPage extends StatelessWidget {
                 itemCount: 100,
                 itemBuilder: (context, idx) {
                   return VoteListTopicItem(
-                      title: '엄빠 없을 때 혼자 뭐해? ($idx)', isVoted: idx.isOdd);
+                      title: '첫 산책, 어떻게 하는게 좋아? ($idx)', isVoted: idx.isOdd);
                 }),
           )
         ],

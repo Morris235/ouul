@@ -21,7 +21,7 @@ class VoteListTopicItem extends StatelessWidget {
         },
         child: Center(
           child: Container(
-              width: 359,
+              width: 420,
               height: 113,
               margin: const EdgeInsets.all(10.0),
               padding: const EdgeInsets.all(10.0),
@@ -54,7 +54,7 @@ class VoteListTopicItem extends StatelessWidget {
                         textAlign: TextAlign.center,
                       ),
                       const SizedBox(
-                        width: 70,
+                        width: 80,
                       ),
                       _votedBadge()
                     ],
