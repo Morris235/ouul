@@ -2,6 +2,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:ouul/views/main_app_bar.dart';
 
+import '../components/photo_card_item.dart';
+
 class PhotoCardPage extends StatefulWidget {
   const PhotoCardPage({super.key});
 
@@ -15,7 +17,7 @@ class _PhotoCardPageState extends State<PhotoCardPage> {
   String _selectedAnimal = 'dog';
 
   static const List<Color> colorList = [
-    Colors.red,
+    Color.fromARGB(255, 255, 255, 255),
     Color.fromARGB(255, 243, 191, 33),
     Color.fromARGB(255, 255, 59, 203),
     Color.fromARGB(255, 59, 248, 255),
@@ -131,59 +133,7 @@ class _PhotoCardPageState extends State<PhotoCardPage> {
                         ],
                       ),
                     ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 5, horizontal: 5),
-                      margin: const EdgeInsets.symmetric(
-                          vertical: 5, horizontal: 5),
-                      width: 300,
-                      height: 400,
-                      // TODO: 카드는 아이템 컴포넌트로 작성
-                      child: Card(
-                          elevation: 20,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(40)),
-                          color: _selectedCardColor,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Container(
-                                margin: const EdgeInsets.all(5.0),
-                                padding: const EdgeInsets.all(5.0),
-                                child: Row(
-                                  children: const [
-                                    SizedBox(
-                                      width: 160,
-                                      height: 120,
-                                      child: TextField(
-                                        style: TextStyle(
-                                            fontSize: 35,
-                                            fontWeight: FontWeight.w700,
-                                            color: Colors.black),
-                                        textAlign: TextAlign.start,
-                                        cursorColor: Colors.black,
-                                        decoration: InputDecoration(
-                                            hintText: '내 이름은',
-                                            contentPadding: EdgeInsets.all(10),
-                                            hintStyle: TextStyle(
-                                                fontSize: 30,
-                                                fontWeight: FontWeight.w700)),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 40,
-                              ),
-                              const Icon(
-                                Icons.photo_camera_outlined,
-                                size: 50,
-                              )
-                            ],
-                          )),
-                    )
+                    PhotoCardItem(selectedCardColor: _selectedCardColor)
                   ]),
             )));
   }
