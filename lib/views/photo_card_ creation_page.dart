@@ -3,15 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:ouul/views/main_app_bar.dart';
 
 import '../components/photo_card_item.dart';
+import '../models/card_info.dart';
 
-class PhotoCardPage extends StatefulWidget {
-  const PhotoCardPage({super.key});
+class PhotoCardCreationPage extends StatefulWidget {
+  const PhotoCardCreationPage({super.key});
 
   @override
-  State<PhotoCardPage> createState() => _PhotoCardPageState();
+  State<PhotoCardCreationPage> createState() => _PhotoCardCreationPageState();
 }
 
-class _PhotoCardPageState extends State<PhotoCardPage> {
+class _PhotoCardCreationPageState extends State<PhotoCardCreationPage> {
   int _selectedColorIconIdx = 0;
   Color _selectedCardColor = colorList[0];
   String _selectedAnimal = 'dog';
@@ -133,7 +134,10 @@ class _PhotoCardPageState extends State<PhotoCardPage> {
                         ],
                       ),
                     ),
-                    PhotoCardItem(selectedCardColor: _selectedCardColor)
+                    PhotoCardItem(
+                      selectedCardColor: _selectedCardColor,
+                      cardInfo: CardInfo('웡웡이', _selectedCardColor),
+                    )
                   ]),
             )));
   }

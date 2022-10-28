@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:ouul/models/card_info.dart';
 
 class PhotoCardItem extends StatefulWidget {
-  const PhotoCardItem({super.key, required this.selectedCardColor});
+  const PhotoCardItem(
+      {super.key, required this.selectedCardColor, required this.cardInfo});
   final Color selectedCardColor;
+  final CardInfo cardInfo;
 
   @override
   State<PhotoCardItem> createState() => _PhotoCardItemState();
@@ -21,7 +24,7 @@ class _PhotoCardItemState extends State<PhotoCardItem> {
           elevation: 20,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
-          color: widget.selectedCardColor,
+          color: widget.cardInfo.getColor(),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ouul/views/photo_card_page.dart';
+import 'package:ouul/views/photo_card_%20creation_page.dart';
+import 'package:ouul/views/photo_card_appeal_page.dart';
 
 class MainAppBar extends StatefulWidget implements PreferredSizeWidget {
   const MainAppBar({super.key});
@@ -54,7 +55,14 @@ class _MainAppBarState extends State<MainAppBar> {
                 case 'photoCard':
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => const PhotoCardPage(),
+                      builder: (context) => const PhotoCardCreationPage(),
+                    ),
+                  );
+                  break;
+                case 'photoCardGallery':
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const PhotoCardAppealPage(),
                     ),
                   );
                   break;
@@ -70,10 +78,19 @@ class _MainAppBarState extends State<MainAppBar> {
                             Icons.pets_outlined,
                             color: Colors.black,
                           ),
-                          SizedBox(
-                            width: 1,
-                          ),
                           Text('포토카드')
+                        ],
+                      )),
+                  PopupMenuItem(
+                      value: 'photoCardGallery',
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: const [
+                          Icon(
+                            Icons.view_list_outlined,
+                            color: Colors.black,
+                          ),
+                          Text('포토카드 갤러리')
                         ],
                       ))
                 ])),
