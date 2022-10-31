@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:ouul/models/card_info.dart';
+import 'package:ouul/models/photo_card_info.dart';
 
 class PhotoCardItem extends StatefulWidget {
   const PhotoCardItem(
       {super.key, required this.selectedCardColor, required this.cardInfo});
   final Color selectedCardColor;
-  final CardInfo cardInfo;
+  // FIXME: Non-null 지향인데 이런식이면 non-Null을 할수 없다.
+  final PhotoCardInfo cardInfo;
 
   @override
   State<PhotoCardItem> createState() => _PhotoCardItemState();
@@ -24,7 +25,7 @@ class _PhotoCardItemState extends State<PhotoCardItem> {
           elevation: 20,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
-          color: widget.cardInfo.getColor(),
+          color: widget.cardInfo.color,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -56,8 +57,14 @@ class _PhotoCardItemState extends State<PhotoCardItem> {
                 ),
               ),
               const SizedBox(
-                height: 40,
+                height: 10,
               ),
+              // TODO: 네트워크 이미지를 가져올때 에러 핸들링
+              // SizedBox(
+              //   width: 150,
+              //   height: 150,
+              //   child: Image.network(widget.cardInfo.getImgUrl()),
+              // ),
               const Icon(
                 Icons.photo_camera_outlined,
                 size: 50,

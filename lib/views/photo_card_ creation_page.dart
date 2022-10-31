@@ -2,8 +2,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:ouul/views/main_app_bar.dart';
 
-import '../components/photo_card_item.dart';
-import '../models/card_info.dart';
+import '../components/photo_card/photo_card_item.dart';
+import '../models/photo_card_info.dart';
 
 class PhotoCardCreationPage extends StatefulWidget {
   const PhotoCardCreationPage({super.key});
@@ -136,7 +136,7 @@ class _PhotoCardCreationPageState extends State<PhotoCardCreationPage> {
                     ),
                     PhotoCardItem(
                       selectedCardColor: _selectedCardColor,
-                      cardInfo: CardInfo('웡웡이', _selectedCardColor),
+                      cardInfo: PhotoCardInfo(color: _selectedCardColor),
                     )
                   ]),
             )));
