@@ -90,7 +90,6 @@ class _PhotoCardAppealPageState extends State<PhotoCardAppealPage> {
                       itemBuilder: ((context, index) {
                         return PhotoCardAppealItem(
                           selectedCardColor: Colors.yellow,
-                          // FIXME: 서버로부터 데이터를 받았는데 null 값이면?? 그 때 처리는 어떻게 해야 하지? 결국 null 처리를 해야 한다는거 아닌가?
                           cardInfo: PhotoCardInfo(
                               color: colorList[index],
                               imgUrl: 'https://picsum.photos/250?image=$index',

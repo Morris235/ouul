@@ -5,7 +5,6 @@ class PhotoCardAppealItem extends StatefulWidget {
   const PhotoCardAppealItem(
       {super.key, required this.selectedCardColor, required this.cardInfo});
   final Color selectedCardColor;
-  // FIXME: Non-null 지향인데 이런식이면 non-Null을 할수 없다.
   final PhotoCardInfo cardInfo;
 
   @override
@@ -65,6 +64,15 @@ class _PhotoCardAppealItemState extends State<PhotoCardAppealItem> {
                           const SizedBox(
                             height: 50,
                           ),
+                          // SizedBox(
+                          //   width: 150,
+                          //   height: 150,
+                          //   child: FadeInImage.assetNetwork(
+                          //     placeholder: 'assets/images/Spinner-1s-200px.gif',
+                          //     image: widget.cardInfo.imgUrl,
+                          //     imageErrorBuilder: (context, error, stackTrace) => ,
+                          //   ),
+                          // ),
                           const Icon(
                             Icons.photo_camera_outlined,
                             size: 50,
