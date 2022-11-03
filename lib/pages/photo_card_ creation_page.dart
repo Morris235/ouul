@@ -1,9 +1,9 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:ouul/views/main_app_bar.dart';
+import 'package:ouul/components/common/main_app_bar.dart';
 
 import '../components/photo_card/photo_card_item.dart';
-import '../models/photo_card_info.dart';
+import '../models/photo_card_info_view_model.dart';
 
 class PhotoCardCreationPage extends StatefulWidget {
   const PhotoCardCreationPage({super.key});
@@ -136,7 +136,8 @@ class _PhotoCardCreationPageState extends State<PhotoCardCreationPage> {
                     ),
                     PhotoCardItem(
                       selectedCardColor: _selectedCardColor,
-                      cardInfo: PhotoCardInfo(color: _selectedCardColor),
+                      cardInfo:
+                          PhotoCardInfoViewModel(color: _selectedCardColor),
                     )
                   ]),
             )));

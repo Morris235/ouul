@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ouul/components/photo_card/photo_card_appeal_item.dart';
-import 'package:ouul/views/main_app_bar.dart';
+import 'package:ouul/components/common/main_app_bar.dart';
 
-import '../models/photo_card_info.dart';
+import '../models/photo_card_info_view_model.dart';
 
 class PhotoCardAppealPage extends StatefulWidget {
   const PhotoCardAppealPage({super.key});
@@ -14,6 +14,8 @@ class PhotoCardAppealPage extends StatefulWidget {
 // TODO: 툴팁, 카드 하이라이팅+아래 텍스트 볼드 표시(이것도 슬라이드),
 // TODO: 클릭하면 카드의 뒷면을 보여주는 애니메이션, 카드의 구멍을 뚫고 그 안에 이미지 보여주기
 // 결국 커스텀 페인트와 애니메이션인가
+
+// TODO: MVVM 적용 : statelessWidget이 되어야함
 class _PhotoCardAppealPageState extends State<PhotoCardAppealPage> {
   static const List<Color> colorList = [
     Color.fromARGB(255, 255, 255, 255),
@@ -26,7 +28,12 @@ class _PhotoCardAppealPageState extends State<PhotoCardAppealPage> {
     Color.fromARGB(255, 255, 239, 59),
     Color.fromARGB(255, 59, 206, 255),
     Color.fromARGB(255, 114, 59, 255),
-    Color.fromARGB(255, 59, 59, 255),
+    Color.fromARGB(255, 10, 149, 126),
+    Color.fromARGB(255, 115, 55, 70),
+    Color.fromARGB(255, 167, 58, 177),
+    Color.fromARGB(255, 202, 174, 72),
+    Color.fromARGB(255, 116, 48, 48),
+    Color.fromARGB(255, 255, 213, 237),
   ];
 
   static const List<String> charmPoint = [
@@ -40,7 +47,12 @@ class _PhotoCardAppealPageState extends State<PhotoCardAppealPage> {
     '한가한',
     '게으른',
     '시니컬한',
-    '순진한'
+    '순진한',
+    '푸근한',
+    '야무진',
+    '소심한',
+    '엉뚱한',
+    '훌륭한',
   ];
 
   static const List<String> hobbyList = [
@@ -54,7 +66,12 @@ class _PhotoCardAppealPageState extends State<PhotoCardAppealPage> {
     '사람을 좋아하는',
     '자는걸 좋아하는',
     '식빵을 좋아하는',
-    '풀냄새를 좋아하는'
+    '풀냄새를 좋아하는',
+    '사료를 좋아하는',
+    '바나나 좋아하는',
+    '막대기를 좋아하는',
+    '장난을 좋아하는',
+    '하울링을 좋아하는',
   ];
 
   int _currentCard = 0;
@@ -90,7 +107,7 @@ class _PhotoCardAppealPageState extends State<PhotoCardAppealPage> {
                       itemBuilder: ((context, index) {
                         return PhotoCardAppealItem(
                           selectedCardColor: Colors.yellow,
-                          cardInfo: PhotoCardInfo(
+                          cardInfo: PhotoCardInfoViewModel(
                               color: colorList[index],
                               imgUrl: 'https://picsum.photos/250?image=$index',
                               charmPoint: charmPoint[index],

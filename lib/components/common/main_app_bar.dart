@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ouul/views/photo_card_%20creation_page.dart';
-import 'package:ouul/views/photo_card_appeal_page.dart';
+import 'package:ouul/pages/photo_card_%20creation_page.dart';
+import 'package:ouul/pages/photo_card_appeal_page.dart';
 
 class MainAppBar extends StatefulWidget implements PreferredSizeWidget {
   const MainAppBar({super.key});

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ouul/views/main_app_bar.dart';
-import 'package:ouul/views/main_bottom_navi.dart';
+import 'package:ouul/components/common/main_app_bar.dart';
+import 'package:ouul/components/common/main_bottom_navi.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});

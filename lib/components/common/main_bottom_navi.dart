@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:ouul/views/feed_page.dart';
-import 'package:ouul/views/my_page.dart';
-import 'package:ouul/views/vote_list_page.dart';
-import 'home_page.dart';
+import 'package:ouul/pages/feed_page.dart';
+import 'package:ouul/pages/my_page.dart';
+import 'package:ouul/pages/vote_list_page.dart';
+import 'package:ouul/pages/home_page.dart';
 
 class MainBottomNavi extends StatefulWidget implements PreferredSizeWidget {
   const MainBottomNavi(

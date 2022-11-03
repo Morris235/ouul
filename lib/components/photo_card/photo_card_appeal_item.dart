@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:ouul/models/photo_card_info.dart';
+import 'package:ouul/models/photo_card_info_view_model.dart';
 
 class PhotoCardAppealItem extends StatefulWidget {
   const PhotoCardAppealItem(
       {super.key, required this.selectedCardColor, required this.cardInfo});
   final Color selectedCardColor;
-  final PhotoCardInfo cardInfo;
+  final PhotoCardInfoViewModel cardInfo;
 
   @override
   State<PhotoCardAppealItem> createState() => _PhotoCardAppealItemState();
@@ -62,21 +62,20 @@ class _PhotoCardAppealItemState extends State<PhotoCardAppealItem> {
                             textAlign: TextAlign.center,
                           ),
                           const SizedBox(
-                            height: 50,
+                            height: 30,
                           ),
-                          // SizedBox(
-                          //   width: 150,
-                          //   height: 150,
-                          //   child: FadeInImage.assetNetwork(
-                          //     placeholder: 'assets/images/Spinner-1s-200px.gif',
-                          //     image: widget.cardInfo.imgUrl,
-                          //     imageErrorBuilder: (context, error, stackTrace) => ,
-                          //   ),
-                          // ),
-                          const Icon(
-                            Icons.photo_camera_outlined,
-                            size: 50,
-                          )
+                          SizedBox(
+                            width: 150,
+                            height: 150,
+                            child: FadeInImage.assetNetwork(
+                              placeholder: 'assets/images/Spinner-1s-200px.gif',
+                              image: widget.cardInfo.imgUrl,
+                            ),
+                          ),
+                          // const Icon(
+                          //   Icons.photo_camera_outlined,
+                          //   size: 50,
+                          // )
                         ],
                       )),
                 ),

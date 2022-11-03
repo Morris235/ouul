@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'main_app_bar.dart';
-import 'main_bottom_navi.dart';
+import '../components/common/main_app_bar.dart';
+import 'package:ouul/components/common/main_bottom_navi.dart';
 
 class MyPage extends StatelessWidget {
   const MyPage({super.key});

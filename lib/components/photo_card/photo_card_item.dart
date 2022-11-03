@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:ouul/models/photo_card_info.dart';
+import 'package:ouul/models/photo_card_info_view_model.dart';
 
 class PhotoCardItem extends StatefulWidget {
   const PhotoCardItem(
       {super.key, required this.selectedCardColor, required this.cardInfo});
   final Color selectedCardColor;
   // FIXME: Non-null 지향인데 이런식이면 non-Null을 할수 없다.
-  final PhotoCardInfo cardInfo;
+  final PhotoCardInfoViewModel cardInfo;
 
   @override
   State<PhotoCardItem> createState() => _PhotoCardItemState();
