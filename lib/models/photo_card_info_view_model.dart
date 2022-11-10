@@ -6,7 +6,7 @@ class PhotoCardInfoViewModel with ChangeNotifier {
   String imgUrl;
   String charmPoint;
   String hobby;
-  int currentCard;
+  double currentCard;
 
   // TODO: 서버로부터 비동기적으로 데이터를 받았다고 가정함
   static const List<Color> colorList = [

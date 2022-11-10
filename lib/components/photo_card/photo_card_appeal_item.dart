@@ -82,14 +82,14 @@ class _PhotoCardAppealItemState extends State<PhotoCardAppealItem> {
                 const SizedBox(
                   height: 20,
                 ),
-                Text(
-                  widget.cardInfo.hobby,
-                  style: const TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.w800,
-                      color: Colors.black),
-                  textAlign: TextAlign.center,
-                )
+                // Text(
+                //   widget.cardInfo.hobby,
+                //   style: const TextStyle(
+                //       fontSize: 30,
+                //       fontWeight: FontWeight.w800,
+                //       color: Colors.black),
+                //   textAlign: TextAlign.center,
+                // )
               ],
             )));
   }

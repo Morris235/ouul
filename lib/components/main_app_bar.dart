@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:ouul/pages/photo_card_%20creation_page.dart';
-import 'package:ouul/pages/photo_card_appeal_page.dart';
+import 'package:ouul/views/animated_test.dart';
+import 'package:ouul/views/photo_card_%20creation_page.dart';
+import 'package:ouul/views/photo_card_appeal_page.dart';
 
 class MainAppBar extends StatefulWidget implements PreferredSizeWidget {
   const MainAppBar({super.key});
@@ -66,6 +67,13 @@ class _MainAppBarState extends State<MainAppBar> {
                     ),
                   );
                   break;
+                case 'animatedTest':
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const AnimatedTest(),
+                    ),
+                  );
+                  break;
               }
             },
             itemBuilder: ((context) => [
@@ -91,6 +99,18 @@ class _MainAppBarState extends State<MainAppBar> {
                             color: Colors.black,
                           ),
                           Text('포토카드 갤러리')
+                        ],
+                      )),
+                  PopupMenuItem(
+                      value: 'animatedTest',
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: const [
+                          Icon(
+                            Icons.animation_outlined,
+                            color: Colors.black,
+                          ),
+                          Text('애니메이션 테스트')
                         ],
                       ))
                 ])),

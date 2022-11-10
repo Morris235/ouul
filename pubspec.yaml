@@ -11,6 +11,10 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^1.0.2
+  firebase_core: ^2.1.1
+  carousel_slider: ^4.1.1
+  lottie:
+  get:
 
 dev_dependencies:
   flutter_test:

@@ -5,7 +5,6 @@ class PhotoCardItem extends StatefulWidget {
   const PhotoCardItem(
       {super.key, required this.selectedCardColor, required this.cardInfo});
   final Color selectedCardColor;
-  // FIXME: Non-null 지향인데 이런식이면 non-Null을 할수 없다.
   final PhotoCardInfoViewModel cardInfo;
 
   @override

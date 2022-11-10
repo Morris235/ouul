@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:ouul/components/photo_card/photo_card_appeal_item.dart';
-import 'package:ouul/components/common/main_app_bar.dart';
+import 'package:ouul/components/main_app_bar.dart';
 
 import '../models/photo_card_info_view_model.dart';
 
@@ -11,12 +14,33 @@ class PhotoCardAppealPage extends StatefulWidget {
   State<PhotoCardAppealPage> createState() => _PhotoCardAppealPageState();
 }
 
-// TODO: 툴팁, 카드 하이라이팅+아래 텍스트 볼드 표시(이것도 슬라이드),
-// TODO: 클릭하면 카드의 뒷면을 보여주는 애니메이션, 카드의 구멍을 뚫고 그 안에 이미지 보여주기
-// 결국 커스텀 페인트와 애니메이션인가
-
-// TODO: MVVM 적용 : statelessWidget이 되어야함
 class _PhotoCardAppealPageState extends State<PhotoCardAppealPage> {
+  double _currentListViewIdx = 0.0;
+  final ScrollController _scrollController = ScrollController();
+  double _width = 600;
+  double _height = 600;
+  Color _color = Colors.green;
+  BorderRadiusGeometry _borderRadius = BorderRadius.circular(8);
+  bool active = true;
+
+  @override
+  void initState() {
+    super.initState();
+    Timer.periodic(const Duration(microseconds: 25000), (Timer timer) {
+      if (_scrollController.hasClients) {
+        if (timer.tick * 1.0 < _scrollController.position.maxScrollExtent &&
+            active) {
+          print(timer.tick * 1.0);
+          print(active);
+          print(_scrollController.position.maxScrollExtent);
+          _scrollController.animateTo(timer.tick * 1.0,
+              duration: const Duration(microseconds: 25000),
+              curve: Curves.easeOutSine);
+        }
+      }
+    });
+  }
+
   static const List<Color> colorList = [
     Color.fromARGB(255, 255, 255, 255),
     Color.fromARGB(255, 243, 191, 33),
@@ -59,12 +83,12 @@ class _PhotoCardAppealPageState extends State<PhotoCardAppealPage> {
     '산책을 좋아하는',
     '짖는걸 좋아하는',
     '장난감을 좋아하는',
-    '터그놀이를 좋아하는',
+    '터그를 좋아하는',
     '달리는걸 좋아하는',
     '고양이를 좋아하는',
     '물놀이를 좋아하는',
     '사람을 좋아하는',
-    '자는걸 좋아하는',
+    '잠을 좋아하는',
     '식빵을 좋아하는',
     '풀냄새를 좋아하는',
     '사료를 좋아하는',
@@ -73,8 +97,6 @@ class _PhotoCardAppealPageState extends State<PhotoCardAppealPage> {
     '장난을 좋아하는',
     '하울링을 좋아하는',
   ];
-
-  int _currentCard = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -95,31 +117,72 @@ class _PhotoCardAppealPageState extends State<PhotoCardAppealPage> {
                   height: 450,
                   margin: const EdgeInsets.all(1.0),
                   padding: const EdgeInsets.all(1.0),
-                  child: PageView.builder(
-                      onPageChanged: (value) {
-                        setState(() {
-                          _currentCard = value;
-                        });
-                      },
-                      controller: PageController(
-                          initialPage: 0, viewportFraction: 0.70),
-                      itemCount: colorList.length,
-                      itemBuilder: ((context, index) {
-                        return PhotoCardAppealItem(
-                          selectedCardColor: Colors.yellow,
-                          cardInfo: PhotoCardInfoViewModel(
-                              color: colorList[index],
-                              imgUrl: 'https://picsum.photos/250?image=$index',
-                              charmPoint: charmPoint[index],
-                              hobby: hobbyList[index],
-                              currentCard: _currentCard),
-                        );
-                      }))),
+                  child: GestureDetector(
+                    onTap: () => active = false,
+                    child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        controller: _scrollController,
+                        itemCount: colorList.length,
+                        itemBuilder: ((context, index) {
+                          _currentListViewIdx = index * 1.0;
+                          return SizedBox(
+                              child: AnimatedContainer(
+                            // Use the properties stored in the State class.
+                            width: 300,
+                            height: _height,
+                            // decoration: BoxDecoration(
+                            //   color: _color,
+                            //   borderRadius: _borderRadius,
+                            // ),
+                            // Define how long the animation should take.
+                            duration: const Duration(seconds: 1),
+                            // Provide an optional curve to make the animation feel smoother.
+                            curve: Curves.fastOutSlowIn,
+                            child: PhotoCardAppealItem(
+                              selectedCardColor: Colors.yellow,
+                              cardInfo: PhotoCardInfoViewModel(
+                                  color: colorList[index],
+                                  imgUrl:
+                                      'https://picsum.photos/250?image=$index',
+                                  charmPoint: charmPoint[index],
+                                  hobby: hobbyList[index],
+                                  currentCard: _currentListViewIdx),
+                            ),
+                          ));
+                        })),
+                  )),
               const SizedBox(
                 height: 20,
               ),
               SizedBox(
-                height: 50,
+                  height: 50,
+                  width: double.maxFinite,
+                  child: PageView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: hobbyList.length,
+                      controller: PageController(
+                          initialPage: 0, viewportFraction: 0.45),
+                      itemBuilder: ((context, index) {
+                        return GestureDetector(
+                            onTap: () {},
+                            child: Container(
+                                width: double.maxFinite,
+                                padding: const EdgeInsets.all(2.0),
+                                margin: const EdgeInsets.all(2.0),
+                                child: Center(
+                                  child: Text(
+                                    hobbyList[index],
+                                    style: const TextStyle(
+                                        fontSize: 23,
+                                        fontWeight: FontWeight.w700),
+                                  ),
+                                )));
+                      }))),
+              const SizedBox(
+                height: 25,
+              ),
+              SizedBox(
+                height: 62,
                 child: OutlinedButton(
                     onPressed: () => {},
                     style: ButtonStyle(
@@ -127,7 +190,7 @@ class _PhotoCardAppealPageState extends State<PhotoCardAppealPage> {
                             (states) => const Color(0xff212121)),
                         shape: MaterialStateProperty.resolveWith((states) =>
                             RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(26)))),
+                                borderRadius: BorderRadius.circular(30)))),
                     child: Container(
                       margin: const EdgeInsets.all(1.0),
                       padding: const EdgeInsets.all(1.0),

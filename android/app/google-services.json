@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "990525508650",
+    "project_id": "ouul-2a38d",
+    "storage_bucket": "ouul-2a38d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:990525508650:android:3471d78981b9befc494753",
+        "android_client_info": {
+          "package_name": "com.example.ouul"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "990525508650-8fno2vmp73e5s4pgk8h8m8ffgl1jioou.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDrpuqPbPd4Vzcrc2hBGwemdxXLvgUi6Kw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "990525508650-8fno2vmp73e5s4pgk8h8m8ffgl1jioou.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
