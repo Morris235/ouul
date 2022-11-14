@@ -13,48 +13,52 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const MainAppBar(),
-      body: ListView(
-        children: [
-          Container(
-            height: 50,
-            margin: const EdgeInsets.all(2.0),
-            padding: const EdgeInsets.all(2.0),
-            child: ElevatedButton(
-                onPressed: () {
-                  Get.to(const PhotoCardCreationPage());
-                },
-                child: const Text(
-                  '회원가입 페이지',
-                  style: TextStyle(fontSize: 20),
-                )),
-          ),
-          Container(
-            height: 50,
-            margin: const EdgeInsets.all(2.0),
-            padding: const EdgeInsets.all(2.0),
-            child: ElevatedButton(
-                onPressed: () {
-                  Get.to(const PhotoCardAppealPage());
-                },
-                child: const Text(
-                  '친구소개 페이지',
-                  style: TextStyle(fontSize: 20),
-                )),
-          ),
-          Container(
-            height: 50,
-            margin: const EdgeInsets.all(2.0),
-            padding: const EdgeInsets.all(2.0),
-            child: ElevatedButton(
-                onPressed: () {
-                  Get.to(const AnimatedTest());
-                },
-                child: const Text(
-                  '애니메이션 테스트 페이지',
-                  style: TextStyle(fontSize: 20),
-                )),
-          ),
-        ],
+      body: Container(
+        margin: const EdgeInsets.all(12.0),
+        padding: const EdgeInsets.all(12.0),
+        child: ListView(
+          children: [
+            Container(
+              height: 50,
+              margin: const EdgeInsets.all(2.0),
+              padding: const EdgeInsets.all(2.0),
+              child: ElevatedButton(
+                  onPressed: () {
+                    Get.to(const PhotoCardCreationPage());
+                  },
+                  child: const Text(
+                    '회원가입 페이지',
+                    style: TextStyle(fontSize: 20),
+                  )),
+            ),
+            Container(
+              height: 50,
+              margin: const EdgeInsets.all(2.0),
+              padding: const EdgeInsets.all(2.0),
+              child: ElevatedButton(
+                  onPressed: () {
+                    Get.to(const PhotoCardAppealPage());
+                  },
+                  child: const Text(
+                    '친구소개 페이지',
+                    style: TextStyle(fontSize: 20),
+                  )),
+            ),
+            Container(
+              height: 50,
+              margin: const EdgeInsets.all(2.0),
+              padding: const EdgeInsets.all(2.0),
+              child: ElevatedButton(
+                  onPressed: () {
+                    Get.to(const AnimatedTest());
+                  },
+                  child: const Text(
+                    '애니메이션 테스트 페이지',
+                    style: TextStyle(fontSize: 20),
+                  )),
+            ),
+          ],
+        ),
       ),
       bottomNavigationBar: const MainBottomNavi(
         currentPage: 'HomePage',

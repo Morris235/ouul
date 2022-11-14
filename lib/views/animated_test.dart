@@ -8,14 +8,35 @@ class AnimatedTest extends StatefulWidget {
   State<AnimatedTest> createState() => _AnimatedTestState();
 }
 
-// TODO: 카드 자동 슬라이드와 위 아래 반동 애니메이션 적용
-class _AnimatedTestState extends State<AnimatedTest> {
+class _AnimatedTestState extends State<AnimatedTest>
+    with TickerProviderStateMixin {
   // Define the various properties with default values. Update these properties
   // when the user taps a FloatingActionButton.
   double _width = 50;
   double _height = 50;
   Color _color = Colors.green;
   BorderRadiusGeometry _borderRadius = BorderRadius.circular(8);
+
+  // Using `late final` for [lazy initialization](https://dart.dev/null-safety/understanding-null-safety#lazy-initialization).
+  late final AnimationController _controller = AnimationController(
+    duration: const Duration(seconds: 2),
+    vsync: this,
+  )..repeat(reverse: true);
+  late final Animation<AlignmentGeometry> _animation = Tween<AlignmentGeometry>(
+    begin: Alignment.center,
+    end: Alignment.bottomCenter,
+  ).animate(
+    CurvedAnimation(
+      parent: _controller,
+      curve: Curves.decelerate,
+    ),
+  );
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,18 +45,24 @@ class _AnimatedTestState extends State<AnimatedTest> {
         title: const Text('애니메이션 테스트'),
       ),
       body: Center(
-        child: AnimatedContainer(
-          // Use the properties stored in the State class.
-          width: _width,
-          height: _height,
-          decoration: BoxDecoration(
-            color: _color,
-            borderRadius: _borderRadius,
+        child: AlignTransition(
+          alignment: _animation,
+          child: Padding(
+            padding: const EdgeInsets.all(8),
+            child: AnimatedContainer(
+              // Use the properties stored in the State class.
+              width: _width,
+              height: _height,
+              decoration: BoxDecoration(
+                color: _color,
+                borderRadius: _borderRadius,
+              ),
+              // Define how long the animation should take.
+              duration: const Duration(seconds: 1),
+              // Provide an optional curve to make the animation feel smoother.
+              curve: Curves.fastOutSlowIn,
+            ),
           ),
-          // Define how long the animation should take.
-          duration: const Duration(seconds: 1),
-          // Provide an optional curve to make the animation feel smoother.
-          curve: Curves.fastOutSlowIn,
         ),
       ),
       floatingActionButton: FloatingActionButton(

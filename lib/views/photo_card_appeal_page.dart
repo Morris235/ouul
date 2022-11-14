@@ -1,9 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+import 'package:get/route_manager.dart';
 import 'package:ouul/components/photo_card/photo_card_appeal_item.dart';
-import 'package:ouul/components/main_app_bar.dart';
 
 import '../models/photo_card_info_view_model.dart';
 
@@ -14,31 +13,60 @@ class PhotoCardAppealPage extends StatefulWidget {
   State<PhotoCardAppealPage> createState() => _PhotoCardAppealPageState();
 }
 
-class _PhotoCardAppealPageState extends State<PhotoCardAppealPage> {
+class _PhotoCardAppealPageState extends State<PhotoCardAppealPage>
+    with TickerProviderStateMixin {
   double _currentListViewIdx = 0.0;
+  late final AnimationController _rotationAnimationController =
+      AnimationController(
+    duration: const Duration(seconds: 1),
+    vsync: this,
+  )..repeat(reverse: true);
+  late final Animation<double> _rotationAnimation = CurvedAnimation(
+    parent: _rotationAnimationController,
+    curve: Curves.elasticOut,
+  );
+
+  late CrossFadeState _crossFadeState = CrossFadeState.showFirst;
+  bool _autoSlideActive = true;
+  bool _visiable = false;
   final ScrollController _scrollController = ScrollController();
-  double _width = 600;
-  double _height = 600;
-  Color _color = Colors.green;
-  BorderRadiusGeometry _borderRadius = BorderRadius.circular(8);
-  bool active = true;
+  final double _height = 600;
 
   @override
   void initState() {
     super.initState();
-    Timer.periodic(const Duration(microseconds: 25000), (Timer timer) {
-      if (_scrollController.hasClients) {
-        if (timer.tick * 1.0 < _scrollController.position.maxScrollExtent &&
-            active) {
-          print(timer.tick * 1.0);
-          print(active);
-          print(_scrollController.position.maxScrollExtent);
-          _scrollController.animateTo(timer.tick * 1.0,
-              duration: const Duration(microseconds: 25000),
-              curve: Curves.easeOutSine);
-        }
+    Timer.periodic(const Duration(microseconds: 26000), (Timer timer) {
+      double autoScrollProgress = timer.tick * 1.0;
+      if (_scrollController.hasClients &&
+          _autoSlideActive &&
+          autoScrollProgress < _scrollController.position.maxScrollExtent) {
+        _scrollController.animateTo(autoScrollProgress,
+            duration: Duration(microseconds: timer.tick),
+            curve: Curves.easeOutSine);
       }
     });
+    Future.delayed(const Duration(seconds: 1), () {
+      if (mounted) {
+        setState(() {
+          _visiable = true;
+        });
+      }
+    });
+
+    Future.delayed(const Duration(seconds: 3), () {
+      if (mounted) {
+        setState(() {
+          _crossFadeState = CrossFadeState.showSecond;
+        });
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    _rotationAnimationController.dispose();
+    super.dispose();
   }
 
   static const List<Color> colorList = [
@@ -101,122 +129,252 @@ class _PhotoCardAppealPageState extends State<PhotoCardAppealPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: const MainAppBar(),
+        // appBar: const MainAppBar(),
         body: Container(
-          margin: const EdgeInsets.all(1.0),
-          padding: const EdgeInsets.all(1.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const Tooltip(
-                message: '카드를 터치하면 프로필을 볼 수 있어요',
-              ),
-              Container(
-                  width: double.maxFinite,
-                  height: 450,
-                  margin: const EdgeInsets.all(1.0),
-                  padding: const EdgeInsets.all(1.0),
-                  child: GestureDetector(
-                    onTap: () => active = false,
-                    child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        controller: _scrollController,
-                        itemCount: colorList.length,
-                        itemBuilder: ((context, index) {
-                          _currentListViewIdx = index * 1.0;
-                          return SizedBox(
-                              child: AnimatedContainer(
-                            // Use the properties stored in the State class.
-                            width: 300,
-                            height: _height,
-                            // decoration: BoxDecoration(
-                            //   color: _color,
-                            //   borderRadius: _borderRadius,
-                            // ),
-                            // Define how long the animation should take.
-                            duration: const Duration(seconds: 1),
-                            // Provide an optional curve to make the animation feel smoother.
-                            curve: Curves.fastOutSlowIn,
-                            child: PhotoCardAppealItem(
-                              selectedCardColor: Colors.yellow,
-                              cardInfo: PhotoCardInfoViewModel(
-                                  color: colorList[index],
-                                  imgUrl:
-                                      'https://picsum.photos/250?image=$index',
-                                  charmPoint: charmPoint[index],
-                                  hobby: hobbyList[index],
-                                  currentCard: _currentListViewIdx),
-                            ),
-                          ));
-                        })),
-                  )),
-              const SizedBox(
-                height: 20,
-              ),
-              SizedBox(
-                  height: 50,
-                  width: double.maxFinite,
-                  child: PageView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: hobbyList.length,
-                      controller: PageController(
-                          initialPage: 0, viewportFraction: 0.45),
-                      itemBuilder: ((context, index) {
-                        return GestureDetector(
-                            onTap: () {},
-                            child: Container(
-                                width: double.maxFinite,
-                                padding: const EdgeInsets.all(2.0),
-                                margin: const EdgeInsets.all(2.0),
-                                child: Center(
-                                  child: Text(
-                                    hobbyList[index],
-                                    style: const TextStyle(
-                                        fontSize: 23,
-                                        fontWeight: FontWeight.w700),
-                                  ),
-                                )));
-                      }))),
-              const SizedBox(
-                height: 25,
-              ),
-              SizedBox(
-                height: 62,
-                child: OutlinedButton(
-                    onPressed: () => {},
-                    style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.resolveWith(
-                            (states) => const Color(0xff212121)),
-                        shape: MaterialStateProperty.resolveWith((states) =>
-                            RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30)))),
-                    child: Container(
-                      margin: const EdgeInsets.all(1.0),
-                      padding: const EdgeInsets.all(1.0),
-                      width: 200,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          Text(
-                            '아울 친구들과 함께 놀아요',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 15,
-                                fontFamily: 'Noto_Sans_KR',
-                                fontWeight: FontWeight.w700),
-                          ),
-                          Icon(
-                            Icons.arrow_forward,
-                            size: 15,
-                            color: Colors.white,
-                          )
-                        ],
-                      ),
-                    )),
-              )
-            ],
+      margin: const EdgeInsets.all(1.0),
+      padding: const EdgeInsets.all(1.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          // TODO: 툴팁
+          const SizedBox(
+            height: 80,
           ),
-        ));
+          const Tooltip(
+            message: '카드를 터치하면 프로필을 볼 수 있어요',
+          ),
+          Container(
+              width: double.maxFinite,
+              height: 550,
+              margin: const EdgeInsets.all(1.0),
+              padding: const EdgeInsets.all(1.0),
+              child: GestureDetector(
+                onTap: () => _autoSlideActive = false,
+                child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    controller: _scrollController,
+                    itemCount: colorList.length,
+                    itemBuilder: ((context, index) {
+                      _currentListViewIdx = index * 1.0;
+                      return SizedBox(
+                          child: AnimatedContainer(
+                        width: 300,
+                        height: _height,
+                        duration: const Duration(seconds: 1),
+                        curve: Curves.fastOutSlowIn,
+                        child: PhotoCardAppealItem(
+                          selectedCardColor: Colors.yellow,
+                          cardInfo: PhotoCardInfoViewModel(
+                              color: colorList[index],
+                              imgUrl: 'https://picsum.photos/250?image=$index',
+                              charmPoint: charmPoint[index],
+                              hobby: hobbyList[index],
+                              currentCard: _currentListViewIdx),
+                          cardIndex: index,
+                        ),
+                      ));
+                    })),
+              )),
+          const SizedBox(
+            height: 30,
+          ),
+          AnimatedOpacity(
+            duration: const Duration(seconds: 2),
+            opacity: _visiable ? 1.0 : 0.0,
+            child: AnimatedCrossFade(
+                firstChild: Column(
+                  children: [
+                    const Text(
+                      'OUUL',
+                      style:
+                          TextStyle(fontSize: 35, fontWeight: FontWeight.w900),
+                    ),
+                    const Text(
+                      "너도 포카 꾸밀래?",
+                      style:
+                          TextStyle(fontSize: 25, fontWeight: FontWeight.w700),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          "우린 포카로 인사해",
+                          style: TextStyle(
+                              fontSize: 25, fontWeight: FontWeight.w700),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        RotationTransition(
+                          turns: _rotationAnimation,
+                          child: const Text(
+                            "\u{1F44B}",
+                            style: TextStyle(
+                                fontSize: 25, fontWeight: FontWeight.w700),
+                          ),
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+                secondChild: Column(
+                  children: [
+                    SizedBox(
+                        height: 50,
+                        width: double.maxFinite,
+                        child: PageView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: hobbyList.length,
+                            controller: PageController(
+                                initialPage: 0, viewportFraction: 0.45),
+                            itemBuilder: ((context, index) {
+                              return GestureDetector(
+                                  onTap: () {},
+                                  child: Container(
+                                      width: double.maxFinite,
+                                      padding: const EdgeInsets.all(2.0),
+                                      margin: const EdgeInsets.all(2.0),
+                                      child: Center(
+                                        child: Text(
+                                          hobbyList[index],
+                                          style: const TextStyle(
+                                              fontSize: 23,
+                                              fontWeight: FontWeight.w700),
+                                        ),
+                                      )));
+                            }))),
+                    const SizedBox(
+                      height: 25,
+                    ),
+                    SizedBox(
+                      height: 62,
+                      child: ElevatedButton(
+                          onPressed: () => {
+                                Get.bottomSheet(
+                                  Container(
+                                      height: 200,
+                                      color: Colors.white,
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          const SizedBox(
+                                            height: 20,
+                                          ),
+                                          const Text(
+                                            '시작하기',
+                                            style: TextStyle(
+                                                fontSize: 23,
+                                                fontWeight: FontWeight.w700),
+                                          ),
+                                          const SizedBox(
+                                            height: 15,
+                                          ),
+                                          SizedBox(
+                                              width: double.maxFinite,
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  Container(
+                                                      // width: 150,
+                                                      // height: 150,
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              1),
+                                                      margin:
+                                                          const EdgeInsets.all(
+                                                              1),
+                                                      child: Image.asset(
+                                                          'assets/images/google_login.png')),
+                                                  Container(
+                                                      // width: 150,
+                                                      // height: 150,
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              1),
+                                                      margin:
+                                                          const EdgeInsets.all(
+                                                              1),
+                                                      child: Image.asset(
+                                                          'assets/images/instargram_login.png')),
+                                                  Container(
+                                                      // width: 150,
+                                                      // height: 150,
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              1),
+                                                      margin:
+                                                          const EdgeInsets.all(
+                                                              1),
+                                                      child: Image.asset(
+                                                          'assets/images/naver_login.png')),
+                                                  Container(
+                                                      // width: 150,
+                                                      // height: 150,
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              1),
+                                                      margin:
+                                                          const EdgeInsets.all(
+                                                              1),
+                                                      child: Image.asset(
+                                                          'assets/images/kakao_login.png'))
+                                                ],
+                                              )),
+                                        ],
+                                      )),
+                                ),
+                              },
+                          style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.resolveWith(
+                                      (states) => const Color(0xff212121)),
+                              shape: MaterialStateProperty.resolveWith(
+                                  (states) => RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(30)))),
+                          child: Container(
+                            margin: const EdgeInsets.all(1.0),
+                            padding: const EdgeInsets.all(1.0),
+                            width: 200,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: const [
+                                Text(
+                                  '아울 친구들과 함께 놀아요',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 15,
+                                      fontFamily: 'Noto_Sans_KR',
+                                      fontWeight: FontWeight.w700),
+                                ),
+                                Icon(
+                                  Icons.arrow_forward,
+                                  size: 15,
+                                  color: Colors.white,
+                                )
+                              ],
+                            ),
+                          )),
+                    ),
+                  ],
+                ),
+                crossFadeState: _crossFadeState,
+                firstCurve: Curves.elasticIn,
+                secondCurve: Curves.elasticIn,
+                duration: const Duration(seconds: 1)),
+          ),
+          const SizedBox(
+            height: 25,
+          ),
+        ],
+      ),
+    ));
   }
 }
