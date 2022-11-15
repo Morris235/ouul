@@ -16,6 +16,7 @@ class PhotoCardAppealPage extends StatefulWidget {
 class _PhotoCardAppealPageState extends State<PhotoCardAppealPage>
     with TickerProviderStateMixin {
   double _currentCardListViewIdx = 0.0;
+  int _selectedCardIndex = 1000;
   int _currentHobby = 0;
   late final AnimationController _rotationAnimationController =
       AnimationController(
@@ -159,17 +160,24 @@ class _PhotoCardAppealPageState extends State<PhotoCardAppealPage>
                     itemCount: colorList.length,
                     itemBuilder: ((context, index) {
                       _currentCardListViewIdx = index * 1.0;
-                      return SizedBox(
-                        child: PhotoCardAppealItem(
-                          cardInfo: PhotoCardInfoViewModel(
-                              color: colorList[index],
-                              imgUrl: 'https://picsum.photos/250?image=$index',
-                              charmPoint: charmPoint[index],
-                              hobby: hobbyList[index],
-                              currentCard: _currentCardListViewIdx),
-                          cardIndex: index,
-                        ),
-                      );
+                      // TODO: 여기서 카드 아이템을 클릭하면 해당 카드 아이템만 뒷면 위젯을 보여야함 (사이즈업, 상하 반동정지)
+                      return GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              _selectedCardIndex = index;
+                            });
+                          },
+                          child: PhotoCardAppealItem(
+                            cardInfo: PhotoCardInfoViewModel(
+                                color: colorList[index],
+                                imgUrl:
+                                    'https://picsum.photos/250?image=$index',
+                                charmPoint: charmPoint[index],
+                                hobby: hobbyList[index],
+                                currentCard: _currentCardListViewIdx),
+                            cardIndex: index,
+                            selectedCardIndex: _selectedCardIndex,
+                          ));
                     })),
               )),
           const SizedBox(
