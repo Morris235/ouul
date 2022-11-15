@@ -55,6 +55,7 @@ class _AnimatedTestState extends State<AnimatedTest>
               height: _height,
               decoration: BoxDecoration(
                 color: _color,
+                border: Border.all(color: Colors.black),
                 borderRadius: _borderRadius,
               ),
               // Define how long the animation should take.

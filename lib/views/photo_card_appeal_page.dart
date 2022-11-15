@@ -15,7 +15,8 @@ class PhotoCardAppealPage extends StatefulWidget {
 
 class _PhotoCardAppealPageState extends State<PhotoCardAppealPage>
     with TickerProviderStateMixin {
-  double _currentListViewIdx = 0.0;
+  double _currentCardListViewIdx = 0.0;
+  int _currentHobby = 0;
   late final AnimationController _rotationAnimationController =
       AnimationController(
     duration: const Duration(seconds: 1),
@@ -149,36 +150,32 @@ class _PhotoCardAppealPageState extends State<PhotoCardAppealPage>
               height: 550,
               margin: const EdgeInsets.all(1.0),
               padding: const EdgeInsets.all(1.0),
+              // 포토 카드 리스트
               child: GestureDetector(
-                onTap: () => _autoSlideActive = false,
+                onTap: () => {_autoSlideActive = false},
                 child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     controller: _scrollController,
                     itemCount: colorList.length,
                     itemBuilder: ((context, index) {
-                      _currentListViewIdx = index * 1.0;
+                      _currentCardListViewIdx = index * 1.0;
                       return SizedBox(
-                          child: AnimatedContainer(
-                        width: 300,
-                        height: _height,
-                        duration: const Duration(seconds: 1),
-                        curve: Curves.fastOutSlowIn,
                         child: PhotoCardAppealItem(
-                          selectedCardColor: Colors.yellow,
                           cardInfo: PhotoCardInfoViewModel(
                               color: colorList[index],
                               imgUrl: 'https://picsum.photos/250?image=$index',
                               charmPoint: charmPoint[index],
                               hobby: hobbyList[index],
-                              currentCard: _currentListViewIdx),
+                              currentCard: _currentCardListViewIdx),
                           cardIndex: index,
                         ),
-                      ));
+                      );
                     })),
               )),
           const SizedBox(
             height: 30,
           ),
+          // 하단 친구 카테고리및 회원 가입버튼
           AnimatedOpacity(
             duration: const Duration(seconds: 2),
             opacity: _visiable ? 1.0 : 0.0,
@@ -221,13 +218,18 @@ class _PhotoCardAppealPageState extends State<PhotoCardAppealPage>
                 secondChild: Column(
                   children: [
                     SizedBox(
-                        height: 50,
+                        height: 60,
                         width: double.maxFinite,
                         child: PageView.builder(
                             scrollDirection: Axis.horizontal,
                             itemCount: hobbyList.length,
                             controller: PageController(
                                 initialPage: 0, viewportFraction: 0.45),
+                            onPageChanged: (value) {
+                              setState(() {
+                                _currentHobby = value;
+                              });
+                            },
                             itemBuilder: ((context, index) {
                               return GestureDetector(
                                   onTap: () {},
@@ -236,13 +238,24 @@ class _PhotoCardAppealPageState extends State<PhotoCardAppealPage>
                                       padding: const EdgeInsets.all(2.0),
                                       margin: const EdgeInsets.all(2.0),
                                       child: Center(
-                                        child: Text(
-                                          hobbyList[index],
-                                          style: const TextStyle(
-                                              fontSize: 23,
-                                              fontWeight: FontWeight.w700),
-                                        ),
-                                      )));
+                                          child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Opacity(
+                                            opacity: _currentHobby == index
+                                                ? 1.0
+                                                : 0.0,
+                                            child: const Text('\u{1F340}'),
+                                          ),
+                                          Text(
+                                            hobbyList[index],
+                                            style: const TextStyle(
+                                                fontSize: 23,
+                                                fontWeight: FontWeight.w700),
+                                          ),
+                                        ],
+                                      ))));
                             }))),
                     const SizedBox(
                       height: 25,
@@ -281,48 +294,29 @@ class _PhotoCardAppealPageState extends State<PhotoCardAppealPage>
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.center,
                                                 children: [
-                                                  Container(
-                                                      // width: 150,
-                                                      // height: 150,
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              1),
-                                                      margin:
-                                                          const EdgeInsets.all(
-                                                              1),
+                                                  SizedBox(
+                                                      width: 50,
+                                                      height: 50,
+                                                      child: Image.asset(
+                                                          'assets/images/apple_login.png')),
+                                                  SizedBox(
+                                                      width: 50,
+                                                      height: 50,
                                                       child: Image.asset(
                                                           'assets/images/google_login.png')),
-                                                  Container(
-                                                      // width: 150,
-                                                      // height: 150,
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              1),
-                                                      margin:
-                                                          const EdgeInsets.all(
-                                                              1),
+                                                  SizedBox(
+                                                      width: 50,
+                                                      height: 50,
                                                       child: Image.asset(
                                                           'assets/images/instargram_login.png')),
-                                                  Container(
-                                                      // width: 150,
-                                                      // height: 150,
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              1),
-                                                      margin:
-                                                          const EdgeInsets.all(
-                                                              1),
+                                                  SizedBox(
+                                                      width: 50,
+                                                      height: 50,
                                                       child: Image.asset(
                                                           'assets/images/naver_login.png')),
-                                                  Container(
-                                                      // width: 150,
-                                                      // height: 150,
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              1),
-                                                      margin:
-                                                          const EdgeInsets.all(
-                                                              1),
+                                                  SizedBox(
+                                                      width: 50,
+                                                      height: 50,
                                                       child: Image.asset(
                                                           'assets/images/kakao_login.png'))
                                                 ],

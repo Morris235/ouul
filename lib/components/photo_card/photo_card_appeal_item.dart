@@ -3,11 +3,7 @@ import 'package:ouul/models/photo_card_info_view_model.dart';
 
 class PhotoCardAppealItem extends StatefulWidget {
   const PhotoCardAppealItem(
-      {super.key,
-      required this.selectedCardColor,
-      required this.cardInfo,
-      required this.cardIndex});
-  final Color selectedCardColor;
+      {super.key, required this.cardInfo, required this.cardIndex});
   final PhotoCardInfoViewModel cardInfo;
   final int cardIndex;
 
@@ -78,7 +74,7 @@ class _PhotoCardAppealItemState extends State<PhotoCardAppealItem>
               width: 300,
               height: 450,
               duration: const Duration(milliseconds: 1000),
-              curve: Curves.fastOutSlowIn,
+              curve: Curves.ease,
               child: Column(
                 children: [
                   Expanded(
@@ -102,51 +98,58 @@ class _PhotoCardAppealItemState extends State<PhotoCardAppealItem>
                             ),
                           )),
                       Opacity(
-                        opacity: 0.5,
+                        opacity: 0.7,
                         child: Card(
+                            elevation: 10,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(40)),
                             color: widget.cardInfo.color,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                const SizedBox(
-                                  height: 40,
-                                ),
-                                Container(
-                                  margin: const EdgeInsets.all(5.0),
-                                  padding: const EdgeInsets.all(10.0),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: const [
-                                      Text(
-                                        '콜리',
-                                        style: TextStyle(
-                                            fontSize: 35,
-                                            fontWeight: FontWeight.w800,
-                                            color: Colors.black),
-                                        textAlign: TextAlign.center,
-                                      )
-                                    ],
-                                  ),
-                                ),
-                                Text(
-                                  widget.cardInfo.charmPoint,
-                                  style: const TextStyle(
-                                      fontSize: 23,
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.black),
-                                  textAlign: TextAlign.center,
-                                ),
-                                const SizedBox(
-                                  height: 30,
-                                ),
-                              ],
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(40),
+                              child: Image.asset(
+                                'assets/images/img_frame01.png',
+                                fit: BoxFit.contain,
+                              ),
                             )),
                       ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Container(
+                            margin: const EdgeInsets.all(5.0),
+                            padding: const EdgeInsets.all(10.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: const [
+                                Text(
+                                  '콜리',
+                                  style: TextStyle(
+                                      fontSize: 35,
+                                      fontWeight: FontWeight.w800,
+                                      color: Colors.black),
+                                  textAlign: TextAlign.center,
+                                )
+                              ],
+                            ),
+                          ),
+                          Text(
+                            widget.cardInfo.charmPoint,
+                            style: const TextStyle(
+                                fontSize: 23,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black),
+                            textAlign: TextAlign.center,
+                          ),
+                          const SizedBox(
+                            height: 30,
+                          ),
+                        ],
+                      )
                     ],
                   )),
                 ],
